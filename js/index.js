@@ -8,7 +8,8 @@ $(function() {
         ,snapto = false
         ,followSuit = false
         ,spriteClasses = {}
-        ,editmode = true;
+        ,editmode = true
+		,guides = false;
 
         return {
 
@@ -158,7 +159,15 @@ $(function() {
                     $(".spriteview").resizable("option", "aspectRatio", true);
                 }, function() {
                     $(".spriteview").resizable("option", "aspectRatio", false);                    
-                })
+                });
+
+				$("#guides").toggle(function() {
+					guides = true;
+					$(".mask.east, .mask.west").css({"top": "0px", "height": "", "bottom": "0px"});
+				}, function() {
+					guides = false;
+					$(".mask.east, .mask.west").css({"top": north, "height": height});
+				});
             },
 
             CreateWorkArea: function() { 
@@ -206,9 +215,33 @@ $(function() {
                     currentSptiteView = id;
 
                     $(".mask.north").css("height", north);
-                    $(".mask.east").css("left", east);
+
+					if(north < 0) { 
+						height = height + north;
+						north = 0;
+					}
+
+					if(south > surface.height()) {
+						height = surface.height() - north;
+					}
+					
+					if(east > surface.width()) {
+						width = surface.width() - west;						
+					}
+					
+					if(west < 0) {
+						width = west + width;
+						west = 0;
+					}
+
+					if(!guides) {	
+						$(".mask.east, .mask.west").css({"top": north, "height": height});
+					}
+
+					$(".mask.east").css("left", east);						
+                   	$(".mask.west").css("width", west);
+
                     $(".mask.south").css("top", south);
-                    $(".mask.west").css("width", west);
 
                     spriteClasses[id] = {
                         
@@ -231,10 +264,12 @@ $(function() {
                     var className = "img" + $(".spriteview").length;
                     var spriteViewId = "spriteView" + Math.floor(Math.random()*9999);
 
+					updateSpriteView(top, (left + 50), (top + 50), left, spriteViewId, className);
+
                     $(".mask").fadeIn();
 
                     var spriteview = $(JUP.html(["div", { "class": "spriteview" }]))
-                        .css({"left": left, "top": top, "border-color": defaultColor })
+                        .css({"left": left, "top": top, "border-color": defaultColor, "position": "absolute" })
                         .data("className", className)
                         .attr("title", className)
                         .attr("id", spriteViewId)
@@ -247,8 +282,6 @@ $(function() {
                             stop: updateSpriteView,
                             snap: (snapto ? ".spriteview, .spritesurface" : false) 
                         });
-
-                    updateSpriteView(top, (left + 50), (top + 50), left, spriteViewId, className);
 
                     $("#className").val(className);
                     $(this).parent().append(spriteview);
