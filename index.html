@@ -1,67 +1,67 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
-	<head>
-		<title></title>
-		<link rel="stylesheet" href="css/smoothness/jquery-ui-1.8.1.custom.css" type="text/css" media="screen" title="no title" charset="utf-8">
-		<link rel="stylesheet" href="css/index.css" type="text/css" media="screen" title="no title" charset="utf-8">
-		<link rel="stylesheet" href="css/farbtastic.css" type="text/css" media="screen" title="no title" charset="utf-8">		
+    <head>
+        <title></title>
+        <link rel="stylesheet" href="css/smoothness/jquery-ui-1.8.1.custom.css" type="text/css" media="screen" title="no title" charset="utf-8">
+        <link rel="stylesheet" href="css/index.css" type="text/css" media="screen" title="no title" charset="utf-8">
+        <link rel="stylesheet" href="css/farbtastic.css" type="text/css" media="screen" title="no title" charset="utf-8">        
 
-	</head>
-	<body>
+    </head>
+    <body>
 
-		<div id="tabs">
-			<ul>
-				<li><a href="#tabs-1">Image</a></li>
-				<li><a href="#tabs-2">Preview</a></li>
-				<li><a href="#tabs-2">CSS</a></li>
-				<input type="text" id="source" value="images/sample.png">									
-			</ul>
-			<div id="tabs-1">
-				<div class="toolbar">	
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">Image</a></li>
+                <li><a href="#tabs-2">Preview</a></li>
+                <li><a href="#tabs-2">CSS</a></li>
+                <input type="text" id="source" value="images/sample.png">                                    
+            </ul>
+            <div id="tabs-1">
+                <div class="toolbar">    
 
-					<input type="text" id="className">					
-					
-					<div id="modes">
-						<input type="checkbox" id="drag" /><label for="drag" title="Drag all outlines together">Drag All</label>					
-						<input type="checkbox" id="resize" /><label for="resize" title="Resize all outlines together">Resize All</label>
-						<input type="checkbox" id="aspect" /><label for="aspect" title="Maintain aspect ratio">Aspect Ratio</label>
-						<input type="checkbox" id="outlinecolor" /><label for="outlinecolor" title="Change outline colors">Outline Color</label>
-						<input type="checkbox" id="backgroundcolor" /><label for="backgroundcolor" title="Change outline colors">Background Color</label>						
-						<input type="checkbox" id="snap" /><label for="snap" title="Snap to other outlines">Snap</label>
-					</div>		
-					<div id="colorPicker1" class="colorPicker"></div>				
-					<div id="colorPicker2" class="colorPicker"></div>
+                    <input type="text" id="className">                    
+                    
+                    <div id="modes">
+                        <input type="checkbox" id="drag" /><label for="drag" title="Drag all outlines together">Drag All</label>                    
+                        <input type="checkbox" id="resize" /><label for="resize" title="Resize all outlines together">Resize All</label>
+                        <input type="checkbox" id="aspect" /><label for="aspect" title="Maintain aspect ratio">Aspect Ratio</label>
+                        <input type="checkbox" id="outlinecolor" /><label for="outlinecolor" title="Change outline colors">Outline Color</label>
+                        <input type="checkbox" id="backgroundcolor" /><label for="backgroundcolor" title="Change outline colors">Background Color</label>                        
+                        <input type="checkbox" id="snap" /><label for="snap" title="Snap to other outlines">Snap</label>
+                    </div>        
+                    <div id="colorPicker1" class="colorPicker"></div>                
+                    <div id="colorPicker2" class="colorPicker"></div>
 
-					<div id="maskopacity" title="Change mask opacity"></div>
-					<div id="imageopacity" title="Change image opacity"></div>
-					
-				</div>
-				<div class="workarea">
-					<div id="mask-north" class="mask north"></div>
-					<div id="mask-east" class="mask east"></div>
-					<div id="mask-south" class="mask south"></div>
-					<div id="mask-west" class="mask west"></div>															
-					<div class="spritesurface"></div>
-				</div>
-				<img class="spritesource" src="images/sample.png" width="523" height="258">
-				
-			</div>
-			<div id="tabs-2">
-				<div class="preview"></div>
-			</div>
-			<div id="tabs-3">
-				<div id="cssresults">
-					
-				</div>
-			</div>
-		</div>
-		
-		<script src="js/lib/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/lib/jquery-ui-1.8.1.custom.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/lib/farbtastic.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/lib/jup.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/lib/SugarSkull.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/index.js" type="text/javascript" charset="utf-8"></script>		
-		
-	</body>
+                    <div id="maskopacity" title="Change mask opacity"></div>
+                    <div id="imageopacity" title="Change image opacity"></div>
+                    
+                </div>
+                <div class="workarea">
+                    <div id="mask-north" class="mask north"></div>
+                    <div id="mask-east" class="mask east"></div>
+                    <div id="mask-south" class="mask south"></div>
+                    <div id="mask-west" class="mask west"></div>                                                            
+                    <div class="spritesurface"></div>
+                </div>
+                <img class="spritesource" src="images/sample.png" width="523" height="258">
+                
+            </div>
+            <div id="tabs-2">
+                <div class="preview"></div>
+            </div>
+            <div id="tabs-3">
+                <div id="cssresults">
+                    
+                </div>
+            </div>
+        </div>
+        
+        <script src="js/lib/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/lib/jquery-ui-1.8.1.custom.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/lib/farbtastic.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/lib/jup.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/lib/SugarSkull.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/index.js" type="text/javascript" charset="utf-8"></script>        
+        
+    </body>
 </html>
