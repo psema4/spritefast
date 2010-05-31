@@ -13,18 +13,16 @@
             <ul>
                 <li><a href="#tabs-1">Image</a></li>
                 <li><a href="#tabs-2">Preview</a></li>
-                <li><a href="#tabs-2">CSS</a></li>
-                <input type="text" id="source" value="images/sample.png">                                    
+                <li><a href="#tabs-2">Source</a></li>                                  
             </ul>
             <div id="tabs-1">
                 <div class="toolbar">    
 
-                    <input type="text" id="className">                    
+                    <input type="text" id="className" class="ui-corner-all">                    
                     
                     <div id="modes">
                         <input type="checkbox" id="drag" /><label for="drag" title="Drag all outlines together">Drag All</label>                    
                         <input type="checkbox" id="resize" /><label for="resize" title="Resize all outlines together">Resize All</label>
-                        <input type="checkbox" id="aspect" /><label for="aspect" title="Maintain aspect ratio">Aspect Ratio</label>
                         <input type="checkbox" id="outlinecolor" /><label for="outlinecolor" title="Change outline colors">Outline Color</label>
                         <input type="checkbox" id="backgroundcolor" /><label for="backgroundcolor" title="Change outline colors">Background Color</label>                        
                         <input type="checkbox" id="snap" /><label for="snap" title="Snap to other outlines">Snap</label>
@@ -51,6 +49,8 @@
                 <div class="preview"></div>
             </div>
             <div id="tabs-3">
+	                <input type="text" id="source" value="images/sample.png">  
+	
                 <div id="cssresults">
                     
                 </div>

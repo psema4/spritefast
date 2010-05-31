@@ -11,6 +11,10 @@ $(function() {
         ,editmode = true
 		,guides = false;
 
+		var SELECTORS = {
+			// TODO: create static selector references.
+		};
+
         return {
 
             Main: function() {
@@ -45,6 +49,8 @@ $(function() {
                         }, 100);
                     }
                 });
+
+				$("#tabs-2 .ui-tabs-panel").sortable()
             },
 
             CreateTabs: function() {
@@ -52,11 +58,11 @@ $(function() {
                 tabs.tabs({
                     select: function(event, ui) {
                         
-                        if(ui.index == 0) {
+                        if(ui.index == 0) { // image tab.
                             editmode = true;
                             $(window).resize();
                         }
-                        else if(ui.index == 1) {
+                        else if(ui.index == 1) { // preview tab.
                             
                             editmode = false;
                             
@@ -65,7 +71,10 @@ $(function() {
 
                             $.each(spriteClasses, function(i, o) {
                                 rules.push(o.value);
-                                samples.push(["div", { "class": "spritepreview " + o.rule }]);
+                                samples.push(["div", { "class": "ui-corner-all" },
+									["div", { "class": "spritepreview " + o.rule }],
+									["div", { "class": "rule" }, o.value]
+								]);
                             });
                             
                             rules = rules.join(" ");                            
@@ -75,7 +84,7 @@ $(function() {
                                 ["div", { "class": "spritepreviewarea" }, samples]
                             ]));
                         }
-                        else if(ui.index == 2) {
+                        else if(ui.index == 2) { // css tab.
                             
                             editmode = false;
                             
@@ -110,12 +119,14 @@ $(function() {
                     $("#colorPicker1").show();
                 }, function() {
                     $("#colorPicker1").hide();
+                    $("label[for=" + $(this).attr("id") + "]").removeClass("ui-state-active");
                 });
 
                 $("#backgroundcolor").toggle(function() {
                     $("#colorPicker2").show();
                 }, function() {
                     $("#colorPicker2").hide();
+                    $("label[for=" + $(this).attr("id") + "]").removeClass("ui-state-active");
                 })    
 
                 $("#colorPicker1").farbtastic(function(color) {
@@ -141,32 +152,35 @@ $(function() {
                 }, function() {
                     snapto = false;        
                     $(".spriteview").draggable("option", "snap", false);
+                    $("label[for=" + $(this).attr("id") + "]").removeClass("ui-state-active");
                 });
 
                 $("#resize").toggle(function() {
                     $(".spriteview").resizable("option", "alsoResize", ".spriteview");
                 }, function() {
                     $(".spriteview").resizable("option", "alsoResize", false);
+                    $("label[for=" + $(this).attr("id") + "]").removeClass("ui-state-active");
                 });
 
                 $("#drag").toggle(function() {
                     $(".spriteview").resizable("option", "alsoResize", ".spriteview");
                 }, function() {
                     $(".spriteview").resizable("option", "alsoResize", false);
-                });
-
-                $("#aspect").toggle(function() {
-                    $(".spriteview").resizable("option", "aspectRatio", true);
-                }, function() {
-                    $(".spriteview").resizable("option", "aspectRatio", false);                    
+                    $("label[for=" + $(this).attr("id") + "]").removeClass("ui-state-active");
                 });
 
 				$("#guides").toggle(function() {
 					guides = true;
 					$(".mask.east, .mask.west").css({"top": "0px", "height": "", "bottom": "0px"});
 				}, function() {
+					$("label[for=" + $(this).attr("id") + "]").removeClass("ui-state-active");
 					guides = false;
-					$(".mask.east, .mask.west").css({"top": north, "height": height});
+					if($(".mask.east, .mask.west").length > 0) {
+						$(".mask.east, .mask.west").css({
+							"top": $("#"+ currentSptiteView).position().top,
+							"height": $("#"+ currentSptiteView).height()
+						});						
+					}
 				});
             },
 
@@ -214,8 +228,6 @@ $(function() {
                     $("#className").val(className);
                     currentSptiteView = id;
 
-                    $(".mask.north").css("height", north);
-
 					if(north < 0) { 
 						height = height + north;
 						north = 0;
@@ -238,9 +250,9 @@ $(function() {
 						$(".mask.east, .mask.west").css({"top": north, "height": height});
 					}
 
+                    $(".mask.north").css("height", north);
 					$(".mask.east").css("left", east);						
                    	$(".mask.west").css("width", west);
-
                     $(".mask.south").css("top", south);
 
                     spriteClasses[id] = {

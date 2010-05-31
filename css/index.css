@@ -111,7 +111,7 @@
 		top: 18px;
 	}
 
-	.colorPicker {
+	.toolbar .colorPicker {
 		position: absolute;
 		top: 50px;
 		background-color: #fff;
@@ -127,17 +127,17 @@
 		right: 97px;
 	}
 
-
 	.toolbar #modes {
 		position: absolute;
 		right: 250px;
 		top: 7px;
 	}
-
-	#source {
-		margin-top: 3px;
-		margin-right: 150px;
-		text-align: center;
+	
+	#className {
+		border: 1px solid #aaa;
+		padding: 4px;
+		height: 19px;
+		width: 195px;
 	}
 
 	#modes .ui-button-text-only .ui-button-text {
@@ -149,10 +149,35 @@
 		margin-top: 3px;
 	}
 	
-/* end: toolbar */	
+/* end: toolbar */
+
+/* start: not toolbar */ 
+
+	#source {
+		margin-top: 3px;
+		margin-right: 150px;
+		text-align: center;
+	}
+
+/* end: not toolbar */
 
 /* start: preview area */
-	.spritepreviewarea div {
+
+	.spritepreviewarea > div {
+		position: relative;
+		margin: 10px;
+		border: 1px solid #aaa;
+	}
+
+	.spritepreviewarea .rule {	
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		text-align: right;
+		color: #999;
+	}
+
+	.spritepreviewarea .spritepreview {
 		margin: 10px;
 		border: 1px solid red;
 	}
