@@ -1,19 +1,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
     <head>
-        <title></title>
+        <title>Spritefast</title>
         <link rel="stylesheet" href="css/smoothness/jquery-ui-1.8.1.custom.css" type="text/css" media="screen" title="no title" charset="utf-8">
         <link rel="stylesheet" href="css/index.css" type="text/css" media="screen" title="no title" charset="utf-8">
-        <link rel="stylesheet" href="css/farbtastic.css" type="text/css" media="screen" title="no title" charset="utf-8">        
-
+        <link rel="stylesheet" href="css/farbtastic.css" type="text/css" media="screen" title="no title" charset="utf-8">
     </head>
     <body>
-
+		
+		<input type="file" id="source" class="ui-corner-all">
+		
         <div id="tabs">
             <ul>
                 <li><a href="#tabs-1">Image</a></li>
                 <li><a href="#tabs-2">Preview</a></li>
-                <li><a href="#tabs-2">Source</a></li>                                  
+                <li><a href="#tabs-3">Source</a></li>
             </ul>
             <div id="tabs-1">
                 <div class="toolbar">    
@@ -21,12 +22,12 @@
                     <input type="text" id="className" class="ui-corner-all">                    
                     
                     <div id="modes">
-                        <input type="checkbox" id="drag" /><label for="drag" title="Drag all outlines together">Drag All</label>                    
-                        <input type="checkbox" id="resize" /><label for="resize" title="Resize all outlines together">Resize All</label>
-                        <input type="checkbox" id="outlinecolor" /><label for="outlinecolor" title="Change outline colors">Outline Color</label>
-                        <input type="checkbox" id="backgroundcolor" /><label for="backgroundcolor" title="Change outline colors">Background Color</label>                        
-                        <input type="checkbox" id="snap" /><label for="snap" title="Snap to other outlines">Snap</label>
-                        <input type="checkbox" id="guides" /><label for="guides" title="Show guides">Guides</label>
+                        <input type="checkbox" id="drag"><label for="drag" title="Drag all outlines together">Drag All</label>                    
+                        <input type="checkbox" id="resize"><label for="resize" title="Resize all outlines together">Resize All</label>
+                        <input type="checkbox" id="outlinecolor"><label for="outlinecolor" title="Change outline colors">Outline Color</label>
+                        <input type="checkbox" id="backgroundcolor"><label for="backgroundcolor" title="Change outline colors">Background Color</label>                        
+                        <input type="checkbox" id="snap"><label for="snap" title="Snap to other outlines">Snap</label>
+                        <input type="checkbox" id="guides"><label for="guides" title="Show guides">Guides</label>
                     </div>        
                     <div id="colorPicker1" class="colorPicker"></div>                
                     <div id="colorPicker2" class="colorPicker"></div>
@@ -42,18 +43,14 @@
                     <div id="mask-west" class="mask west"></div>                                                            
                     <div class="spritesurface"></div>
                 </div>
-                <img class="spritesource" src="images/sample.png" width="523" height="258">
-                
+                <img class="spritesource" src="images/sample.png" width="523" height="258" alt="">
             </div>
             <div id="tabs-2">
-                <div class="preview"></div>
+                <div class="preview">
+                </div>
             </div>
             <div id="tabs-3">
-	                <input type="text" id="source" value="images/sample.png">  
-	
-                <div id="cssresults">
-                    
-                </div>
+				<textarea class="ui-corner-all" id="resultcss" rows="8" cols="40"></textarea>
             </div>
         </div>
         

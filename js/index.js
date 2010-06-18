@@ -9,11 +9,11 @@ $(function() {
         ,followSuit = false
         ,spriteClasses = {}
         ,editmode = true
-		,guides = false;
+        ,guides = false;
 
-		var SELECTORS = {
-			// TODO: create static selector references.
-		};
+        var SELECTORS = {
+            // TODO: create static selector references.
+        };
 
         return {
 
@@ -29,7 +29,7 @@ $(function() {
                         ,"CreateTabs"
                         ,"CreateToolbar"
                         ,"CreateWorkArea"
-                        ,"AfterLoad"
+                        ,"Conclude"
                     ]
                 });
             },
@@ -50,54 +50,57 @@ $(function() {
                     }
                 });
 
-				$("#tabs-2 .ui-tabs-panel").sortable()
+                $("#tabs-2 .ui-tabs-panel").sortable()
             },
+            
+            
 
             CreateTabs: function() {
                 var tabs = $("#tabs");
                 tabs.tabs({
                     select: function(event, ui) {
-                        
+
+                        $("#className").keyup();
+
                         if(ui.index == 0) { // image tab.
                             editmode = true;
                             $(window).resize();
                         }
                         else if(ui.index == 1) { // preview tab.
-                            
+
                             editmode = false;
-                            
+
                             var rules = [];
                             var samples = [];
 
                             $.each(spriteClasses, function(i, o) {
                                 rules.push(o.value);
                                 samples.push(["div", { "class": "ui-corner-all" },
-									["div", { "class": "spritepreview " + o.rule }],
-									["div", { "class": "rule" }, o.value]
-								]);
+                                    ["div", { "class": "spritepreview " + o.rule }],
+                                    ["div", { "class": "rule" }, o.value]
+                                ]);
                             });
-                            
-                            rules = rules.join(" ");                            
-                            
+
+                            rules = rules.join(" ");
+
                             $("#tabs-2").html(JUP.html([
                                 ["style", ".spritepreview { background-image: url(" + $(".spritesource").attr("src") + ") } " + rules],
                                 ["div", { "class": "spritepreviewarea" }, samples]
                             ]));
                         }
                         else if(ui.index == 2) { // css tab.
-                            
+
                             editmode = false;
-                            
-                            $("#cssresults").html("");
+
+                            $("#resultcss").val("");
                             $.each(spriteClasses, function(i, o) {
-                                $("#cssresults").append(JUP.html(["div", o]));
+                                $("#resultcss").val($("#resultcss").val() + "\r\n" + o.value);
                             });
                         }
                     }
                 })
                     .find(".ui-tabs-nav")
-                    .append(JUP.html(["span", { "class": "logo"}]))
-                    .disableSelection();                
+                    .disableSelection();
             },
 
             CreateToolbar: function() {
@@ -127,7 +130,7 @@ $(function() {
                 }, function() {
                     $("#colorPicker2").hide();
                     $("label[for=" + $(this).attr("id") + "]").removeClass("ui-state-active");
-                })    
+                })
 
                 $("#colorPicker1").farbtastic(function(color) {
                     $(".spriteview, .spritesurface").css("border-color", color);
@@ -150,7 +153,7 @@ $(function() {
                     snapto = true;
                     $(".spriteview").draggable("option", "snap", ".spriteview, .spritesurface");
                 }, function() {
-                    snapto = false;        
+                    snapto = false;
                     $(".spriteview").draggable("option", "snap", false);
                     $("label[for=" + $(this).attr("id") + "]").removeClass("ui-state-active");
                 });
@@ -169,37 +172,37 @@ $(function() {
                     $("label[for=" + $(this).attr("id") + "]").removeClass("ui-state-active");
                 });
 
-				$("#guides").toggle(function() {
-					guides = true;
-					$(".mask.east, .mask.west").css({"top": "0px", "height": "", "bottom": "0px"});
-				}, function() {
-					$("label[for=" + $(this).attr("id") + "]").removeClass("ui-state-active");
-					guides = false;
-					if($(".mask.east, .mask.west").length > 0) {
-						$(".mask.east, .mask.west").css({
-							"top": $("#"+ currentSptiteView).position().top,
-							"height": $("#"+ currentSptiteView).height()
-						});						
-					}
-				});
+                $("#guides").toggle(function() {
+                    guides = true;
+                    $(".mask.east, .mask.west").css({"top": "0px", "height": "", "bottom": "0px"});
+                }, function() {
+                    $("label[for=" + $(this).attr("id") + "]").removeClass("ui-state-active");
+                    guides = false;
+                    if($(".mask.east, .mask.west").length > 0) {
+                        $(".mask.east, .mask.west").css({
+                            "top": $("#"+ currentSptiteView).position().top,
+                            "height": $("#"+ currentSptiteView).height()
+                        });
+                    }
+                });
             },
 
-            CreateWorkArea: function() { 
+            CreateWorkArea: function() {
 
                 function updateSpriteView(north, east, south, west, id, className) {
 
-                    var el = $(this);
-                    var elpos = (this !== window) ? $(this).position() : {};
-                    var surface = $(".spritesurface");
-
+                    var el = $(this)
+                    ,elpos = ((this !== window) ? $(this).position() : {})
+                    ,surface = $(".spritesurface");
+                    
                     north = parseInt(north) || elpos.top;
                     east = parseInt(east) || (elpos.left + el.width());
                     south = parseInt(south) || (elpos.top + el.height());
                     west = parseInt(west) || elpos.left;
-                    
-                    height = (this !== window) ? el.height() : 50;    
-                    width = (this !== window) ? el.width() : 50;
-                    
+
+                    height = ((this !== window) ? el.height() : 50);
+                    width = ((this !== window) ? el.width() : 50);
+
                     id = id || el.attr("id");
                     className = className || el.data("className");
 
@@ -207,17 +210,17 @@ $(function() {
                         east > (surface.position().left + surface.width()) + width ||
                         south > (surface.position().top + surface.height()) + height ||
                         west < surface.position().left - width) {
-                        
-                        el.fadeOut(function() { 
-                            delete spriteClasses[id];                            
+
+                        el.fadeOut(function() {
+                            delete spriteClasses[id];
                             el.remove();
-                        });                        
+                        });
 
                         if($(".spriteview").length-1 > 0) {
                             $($(".spriteview").get($(".spriteview").length-2)).click();
                         }
                         else {
-                            $(".mask").fadeOut();                            
+                            $(".mask").fadeOut();
                         }
                         return;
                     }
@@ -228,35 +231,35 @@ $(function() {
                     $("#className").val(className);
                     currentSptiteView = id;
 
-					if(north < 0) { 
-						height = height + north;
-						north = 0;
-					}
+                    if(north < 0) {
+                        height = height + north;
+                        north = 0;
+                    }
 
-					if(south > surface.height()) {
-						height = surface.height() - north;
-					}
-					
-					if(east > surface.width()) {
-						width = surface.width() - west;						
-					}
-					
-					if(west < 0) {
-						width = west + width;
-						west = 0;
-					}
+                    if(south > surface.height()) {
+                        height = surface.height() - north;
+                    }
 
-					if(!guides) {	
-						$(".mask.east, .mask.west").css({"top": north, "height": height});
-					}
+                    if(east > surface.width()) {
+                        width = surface.width() - west;
+                    }
+
+                    if(west < 0) {
+                        width = west + width;
+                        west = 0;
+                    }
+
+                    if(!guides) {
+                        $(".mask.east, .mask.west").css({"top": north, "height": height});
+                    }
 
                     $(".mask.north").css("height", north);
-					$(".mask.east").css("left", east);						
-                   	$(".mask.west").css("width", west);
+                    $(".mask.east").css("left", east);
+                       $(".mask.west").css("width", west);
                     $(".mask.south").css("top", south);
 
                     spriteClasses[id] = {
-                        
+
                         value: [
                             ".", className,
                             " { background-position: ", ((west+"").indexOf("-") == -1) ? "-" + Math.floor(west) : (""+Math.floor(west)).substr(1, west.length),
@@ -266,17 +269,18 @@ $(function() {
                         rule: className
                     }
                 }
+                
 
                 $(".spriteview").live("click", updateSpriteView);
-
+                
                 $(".spritesurface").click(function(e) {
 
-                    var left = e.layerX;
-                    var top = e.layerY;
-                    var className = "img" + $(".spriteview").length;
-                    var spriteViewId = "spriteView" + Math.floor(Math.random()*9999);
+                    var left = e.layerX
+                    ,top = e.layerY
+                    ,className = ("img" + $(".spriteview").length)
+                    ,spriteViewId = ("spriteView" + Math.floor(Math.random()*9999));
 
-					updateSpriteView(top, (left + 50), (top + 50), left, spriteViewId, className);
+                    updateSpriteView(top, (left + 50), (top + 50), left, spriteViewId, className);
 
                     $(".mask").fadeIn();
 
@@ -285,24 +289,24 @@ $(function() {
                         .data("className", className)
                         .attr("title", className)
                         .attr("id", spriteViewId)
-                        .resizable({ 
+                        .resizable({
                             resize: updateSpriteView
                         })
-                        .draggable({ 
+                        .draggable({
                             start: updateSpriteView,
                             drag: updateSpriteView,
                             stop: updateSpriteView,
-                            snap: (snapto ? ".spriteview, .spritesurface" : false) 
+                            snap: (snapto ? ".spriteview, .spritesurface" : false)
                         });
 
                     $("#className").val(className);
                     $(this).parent().append(spriteview);
                     currentSptiteView = spriteViewId;
-                }) // .selectable();
+                });
             },
 
-            AfterLoad: function() {
-                $(window).resize();                
+            Conclude: function() {
+                $(window).resize();
             }
         }
     })().Main();
